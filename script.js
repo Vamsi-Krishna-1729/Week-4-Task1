@@ -12,7 +12,7 @@ require([
     container: "viewDiv",
     map: map,
     center: [-90.1994, 38.6270], // Center over St. Louis
-    zoom: 12
+    zoom: 10
   });
 
   // Popup Template showing all fields
@@ -28,15 +28,27 @@ require([
       <b>Shape Length:</b> {Shape__Length}
     `
   };
+  
+  var symbol = {
+      type: "picture-marker",  // autocasts as new PictureMarkerSymbol()
+      url: "https://cdn-icons-png.flaticon.com/512/175/175416.png",
+      width: "20px",
+      height: "20px"
+    };
+    var renderer = {
+      type: "simple",  
+      symbol: symbol
+    };
 
   var featureLayer = new FeatureLayer({
     url: "https://services2.arcgis.com/bB9Y1bGKerz1PTl5/ArcGIS/rest/services/STL_Neighborhood/FeatureServer/0",
     outFields: ["*"], // include all fields
-    popupTemplate: template
+    popupTemplate: template,
+    renderer:renderer
   });
 
-  /*
-  featureLayer.renderer = {
+  
+  /*featureLayer.renderer = {
     type: "simple",  
     symbol: {
       type: "simple-marker",  
@@ -47,8 +59,8 @@ require([
         color: "white"
       }
     }
-  };
-  */
+  };*/
+  
 
   map.add(featureLayer);
 
